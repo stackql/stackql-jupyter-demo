@@ -9,7 +9,9 @@ Query cloud inventory and perform analysis and visualisations using Jupyter and 
 ## Instructions
 
 1. Clone this repo `git clone https://github.com/stackql/stackql-jupyter-demo`
-2. Add the appropriate service account key for your environment to the `keys/` directory 
+2. Add credentials for the providers required by... 
+- adding the appropriate service account key(s) to the `keys/` directory 
+- adding the appropriate API key(s) as `KEYNAME=keyval` to a file in your root directory named `apikeys.env`
 3. Build the image:
 ```shell
 docker build --no-cache -t stackql-jupyter-demo .
