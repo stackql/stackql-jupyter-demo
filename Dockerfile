@@ -5,14 +5,15 @@ WORKDIR /work
 USER root
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y git
+    apt-get install -y git && \
+    apt-get install -y unzip
 
 RUN git clone https://github.com/stackql/pystackql
-
-ADD ./bin/stackql /work/
-
-RUN mv stackql /bin && \
-    chmod +x /bin/stackql 
+RUN wget --no-verbose https://releases.stackql.io/stackql/latest/stackql_linux_amd64.zip && \
+    unzip stackql_linux_amd64.zip && \
+    mv stackql /bin/stackql && \
+    chmod +x /bin/stackql && \
+    rm stackql_linux_amd64.zip
 
 COPY ./keys /keys
 COPY ./example.ipynb /work

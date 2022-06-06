@@ -16,7 +16,7 @@ docker build --no-cache -t stackql-jupyter-demo .
 ```
 4. Run the image:
 ```shell
-docker run -dp 8888:8888 stackql-jupyter-demo start-notebook.sh --NotebookApp.token=''
+docker run -dp 8888:8888 --env-file ./apikeys.env stackql-jupyter-demo start-notebook.sh --NotebookApp.token=''
 ```
 > Add authentication if running this on a server which is accessible to others, see https://jupyter-notebook.readthedocs.io/en/stable/security.html
 5. Run your StackQL commands!
