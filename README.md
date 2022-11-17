@@ -5,6 +5,7 @@ Query cloud inventory and perform analysis and visualisations using Jupyter and 
 ## Prerequisites
 
 - Docker
+- Doocker Compose (optional)
 
 ## Instructions
 
@@ -26,6 +27,14 @@ docker run -dp 8888:8888 --env-file ./apikeys.env stackql-jupyter-demo start-not
 ```shell
 docker stop $(docker ps -l -q --filter status=running --filter ancestor=stackql-jupyter-demo)
 ```
+
+
+```
+docker compose up --build
+# docker compose down
+# docker rmi stackql-jupyter-demo-jupyter:latest
+```
+
 
 ## Example
 
