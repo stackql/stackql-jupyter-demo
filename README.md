@@ -1,6 +1,6 @@
 # StackQL Jupyter Demo
 
-Query cloud inventory and perform analysis and visualisations using Jupyter and Python.
+Query cloud inventory and perform analysis and visualisations using Jupyter, Python and StackQL.
 
 ## Prerequisites
 
