@@ -7,7 +7,11 @@ Query cloud inventory and perform analysis and visualisations using Jupyter, Pyt
 - Docker
 - Doocker Compose (optional)
 
-## Instructions
+## Instructions run from Dockerhub
+
+
+
+## Instructions to build and run locally
 
 1. Clone this repo `git clone https://github.com/stackql/stackql-jupyter-demo`
 2. Add credentials for the providers required by... 
@@ -34,7 +38,7 @@ docker compose up --build
 # docker compose down
 # docker rmi stackql-jupyter-demo-jupyter:latest
 ```
-
+docker cp /hostfile  (container_id):/(to_the_place_you_want_the_file_to_be)
 
 ## Example
 

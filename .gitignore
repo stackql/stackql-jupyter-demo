@@ -1,2 +1,3 @@
 keys/*.json
-apikeys.env
+apikeys.sh
+apikeys.ps1
