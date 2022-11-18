@@ -7,8 +7,7 @@
 
 Query cloud inventory and perform analysis and visualisations using Jupyter, Python and StackQL.
 
-Table of contents
-=================
+## Table of contents
 
 <!--ts-->
    * [Prerequisites](#prerequisites)
@@ -21,14 +20,12 @@ Table of contents
 
 ![StackQL Jupyter](images/stackql-jupyter.png)
 
-Prerequisites
-=============
+## Prerequisites
 
 - Docker
 - Doocker Compose (optional)
 
-Setting up authentication
-=========================
+## Setting up authentication
 
 You will need to setup credentials for the providers required by... 
 - adding the appropriate service account key(s) to the `keys/` directory 
@@ -68,8 +65,7 @@ $Env:NETLIFY_TOKEN = "YOURNETLIFYTOKEN"
 </details>
 
 
-Instructions to pull and run image from Dockerhub
-=================================================
+## Instructions to pull and run image from Dockerhub
 
 The `stackql-jupyter-demo` image is available on Dockerhub ([hub.docker.com/r/stackql/stackql-jupyter-demo](https://hub.docker.com/r/stackql/stackql-jupyter-demo)). To run it in detatched mode, execute the following command:  
 
@@ -112,8 +108,7 @@ docker stop $(docker ps -l -q --filter status=running --filter ancestor=stackql/
 docker rm $(docker ps --filter status=exited --filter ancestor=stackql/stackql-jupyter-demo -q)
 ```
 
-Instructions to build and run locally
-=====================================
+## Instructions to build and run locally
 
 Follow these instructions to build and run the container locally using `docker compose`, this could be adapted to use `docker run` as well if you prefer.
 
