@@ -35,7 +35,8 @@ RUN chmod 644 /jupyter/.keys && \
     chown jovyan:users /jupyter/.keys  
 # copy entrypoint script
 RUN mkdir -p /scripts
-COPY ./scripts/* /scripts
+COPY ./scripts/entrypoint.sh /scripts
+RUN chmod +x /scripts/entrypoint.sh
 # setup python environment
 ENV PYTHON_PACKAGES="\
     matplotlib \
