@@ -32,7 +32,10 @@ RUN chmod 644 /jupyter/ext/*.py && \
 # create directory for service account keys
 RUN mkdir -p /jupyter/.keys
 RUN chmod 644 /jupyter/.keys && \
-    chown jovyan:users /jupyter/.keys    
+    chown jovyan:users /jupyter/.keys  
+# copy entrypoint script
+RUN mkdir -p /scripts
+COPY ./scripts/* /scripts
 # setup python environment
 ENV PYTHON_PACKAGES="\
     matplotlib \

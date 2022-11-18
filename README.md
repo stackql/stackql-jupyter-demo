@@ -7,39 +7,116 @@ Query cloud inventory and perform analysis and visualisations using Jupyter, Pyt
 - Docker
 - Doocker Compose (optional)
 
-## Instructions run from Dockerhub
+## Setting up authentication
 
+You will need to setup credentials for the providers required by... 
+- adding the appropriate service account key(s) to the `keys/` directory 
+- populating the necessary environment variables on your host machine, examples are shown here:
+
+<details>
+<summary>Setting Environment Variables (bash)</summary>
+<p>
+
+```bash
+export AWS_ACCESS_KEY_ID=YOURACCESSKEYID
+export AWS_SECRET_ACCESS_KEY=YOURSECRETACCESSKEY
+AZ_ACCESS_TOKEN_RAW=$(az account get-access-token --query accessToken --output tsv)
+export AZ_ACCESS_TOKEN=`echo $AZ_ACCESS_TOKEN_RAW | tr -d '\r'`
+export GITHUB_CREDS=$(echo -n 'githubusername:your_github_personal_access_token' | base64)
+export OKTA_SECRET_KEY=YOUROKTAAPIKEY
+export NETLIFY_TOKEN=YOURNETLIFYTOKEN
+```
+
+</p>
+</details>
+
+<details>
+<summary>Setting Environment Variables (powershell)</summary>
+<p>
+
+```powershell
+$Env:AWS_ACCESS_KEY_ID = "YOURACCESSKEYID"
+$Env:AWS_SECRET_ACCESS_KEY = "YOURSECRETACCESSKEY"
+$Env:AZ_ACCESS_TOKEN = "$(az account get-access-token --query accessToken --output tsv)".Trim("`r")
+$Env:GITHUB_CREDS = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("githubusername:your_github_personal_access_token"))
+$Env:OKTA_SECRET_KEY = "YOUROKTAAPIKEY"
+$Env:NETLIFY_TOKEN = "YOURNETLIFYTOKEN"
+```
+
+</p>
+</details>
+
+
+## Instructions to pull and run image from Dockerhub
+
+The `stackql-jupyter-demo` image is available on Dockerhub ([hub.docker.com/r/stackql/stackql-jupyter-demo](https://hub.docker.com/r/stackql/stackql-jupyter-demo)). To run it, execute the following command:  
+
+> you can omit credentials for providers you don't need
+
+using `bash`...
+
+```bash
+docker pull stackql/stackql-jupyter-demo
+docker run -d -p 8888:8888 \
+-e AWS_ACCESS_KEY_ID \
+-e AWS_SECRET_ACCESS_KEY \
+-e AZ_ACCESS_TOKEN \
+-e GITHUB_CREDS \
+-e OKTA_SECRET_KEY \
+-e NETLIFY_TOKEN \
+stackql/stackql-jupyter-demo \
+/bin/bash -c "nohup /srv/stackql/stackql --auth="$$STACKQL_PROVIDER_AUTH" --pgsrv.port=5444 srv &>/dev/null &; start-notebook.sh --NotebookApp.token=''"
+```
+
+using `powershell`...
+
+```powershell
+docker pull stackql/stackql-jupyter-demo
+docker run -p 8888:8888 `
+-e AWS_ACCESS_KEY_ID `
+-e AWS_SECRET_ACCESS_KEY `
+-e AZ_ACCESS_TOKEN `
+-e GITHUB_CREDS `
+-e OKTA_SECRET_KEY `
+-e NETLIFY_TOKEN `
+stackql/stackql-jupyter-demo `
+/bin/sh -c "/scripts/entrypoint.sh"
+```
 
 
 ## Instructions to build and run locally
 
-1. Clone this repo `git clone https://github.com/stackql/stackql-jupyter-demo`
-2. Add credentials for the providers required by... 
-- adding the appropriate service account key(s) to the `keys/` directory 
-- adding the appropriate API key(s) as `KEYNAME=keyval` to a file in your root directory named `apikeys.env`
-3. Build the image:
-```shell
-docker build --no-cache -t stackql-jupyter-demo .
-```
-4. Run the image:
-```shell
-docker run -dp 8888:8888 --env-file ./apikeys.env stackql-jupyter-demo start-notebook.sh --NotebookApp.token=''
+Follow these instructions to build and run the container locally using `docker compose`, this could be adapted to use `docker run` as well if you prefer.
+
+### 1. Clone the repo
+
+Clone this repo `git clone https://github.com/stackql/stackql-jupyter-demo`
+
+### 2. Build and run the container
+
+Build and run the image using the `docker-compose.yml` file:
+```bash
+docker compose up --build
 ```
 > Add authentication if running this on a server which is accessible to others, see https://jupyter-notebook.readthedocs.io/en/stable/security.html
-5. Run your StackQL commands!
-6. Stop your running container when finished:
-```shell
-docker stop $(docker ps -l -q --filter status=running --filter ancestor=stackql-jupyter-demo)
+
+### 3. Use your notebook
+Navigate to `http://localhost:8888` and run your StackQL commands!  Use the sample notebook files included in the Jupyter workspace in the image.  
+
+### 4. Stop and remove the container
+Stop and remove the container when finished by:
+Pressing `cntl + c` in the terminal window where the container is running and then running:  
+```bash
+docker compose down
 ```
 
+### 5. Remove the image (optional)
 
+To remove the image locally run:
+```bash 
+docker rmi stackql-jupyter-demo-jupyter:latest
 ```
-docker compose up --build
-# docker compose down
-# docker rmi stackql-jupyter-demo-jupyter:latest
-```
-docker cp /hostfile  (container_id):/(to_the_place_you_want_the_file_to_be)
 
 ## Example
 
-![Example Notebook](images/example-notebook.png)
+![StackQL Jupyter](images/stackql-jupyter.png)

@@ -13,10 +13,11 @@ services:
       - /bin/sh
       - -c
       - |
-        /srv/stackql/stackql --version
-        echo "starting stackql server..."
-        nohup /srv/stackql/stackql --auth="$$STACKQL_PROVIDER_AUTH" --pgsrv.port=5444 srv &>/dev/null &
-        echo "stackql server started"
-        start-notebook.sh --NotebookApp.token=''
+        # /srv/stackql/stackql --version
+        # echo "starting stackql server..."
+        # nohup /srv/stackql/stackql --auth="$$STACKQL_PROVIDER_AUTH" --pgsrv.port=5444 srv &>/dev/null &
+        # echo "stackql server started"
+        # start-notebook.sh --NotebookApp.token=''
+        /scripts/entrypoint.sh
     ports:
       - 8888:8888 
