@@ -1,3 +1,7 @@
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/stackql/stackql-jupyter-demo/Build%20and%20Publish)
+![License](https://img.shields.io/github/license/stackql/stackql)
+[![StackQL](https://stackql.io/img/stackql-banner.png)](https://stackql.io/) 
+
 # StackQL Jupyter Demo
 
 Query cloud inventory and perform analysis and visualisations using Jupyter, Python and StackQL.
@@ -49,7 +53,7 @@ $Env:NETLIFY_TOKEN = "YOURNETLIFYTOKEN"
 
 ## Instructions to pull and run image from Dockerhub
 
-The `stackql-jupyter-demo` image is available on Dockerhub ([hub.docker.com/r/stackql/stackql-jupyter-demo](https://hub.docker.com/r/stackql/stackql-jupyter-demo)). To run it, execute the following command:  
+The `stackql-jupyter-demo` image is available on Dockerhub ([hub.docker.com/r/stackql/stackql-jupyter-demo](https://hub.docker.com/r/stackql/stackql-jupyter-demo)). To run it in detatched mode, execute the following command:  
 
 > you can omit credentials for providers you don't need
 
@@ -65,14 +69,14 @@ docker run -d -p 8888:8888 \
 -e OKTA_SECRET_KEY \
 -e NETLIFY_TOKEN \
 stackql/stackql-jupyter-demo \
-/bin/bash -c "nohup /srv/stackql/stackql --auth="$$STACKQL_PROVIDER_AUTH" --pgsrv.port=5444 srv &>/dev/null &; start-notebook.sh --NotebookApp.token=''"
+/bin/sh -c "/scripts/entrypoint.sh"
 ```
 
 using `powershell`...
 
 ```powershell
 docker pull stackql/stackql-jupyter-demo
-docker run -p 8888:8888 `
+docker run -d -p 8888:8888 `
 -e AWS_ACCESS_KEY_ID `
 -e AWS_SECRET_ACCESS_KEY `
 -e AZ_ACCESS_TOKEN `
@@ -83,6 +87,12 @@ stackql/stackql-jupyter-demo `
 /bin/sh -c "/scripts/entrypoint.sh"
 ```
 
+To stop and remove the container when you're finished, run...   
+
+```bash
+docker stop $(docker ps -l -q --filter status=running --filter ancestor=stackql/stackql-jupyter-demo)
+docker rm $(docker ps --filter status=exited --filter ancestor=stackql/stackql-jupyter-demo -q)
+```
 
 ## Instructions to build and run locally
 
