@@ -1,17 +1,34 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/stackql/stackql-jupyter-demo/Build%20and%20Publish)
+[![StackQL](https://stackql.io/img/stackql-banner.png)](https://stackql.io/)  
+<br />
+[![GitHub Actions](https://github.com/stackql/stackql-jupyter-demo/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/stackql/stackql-jupyter-demo/actions/workflows/main.yml)
 ![License](https://img.shields.io/github/license/stackql/stackql)
-[![StackQL](https://stackql.io/img/stackql-banner.png)](https://stackql.io/) 
 
 # StackQL Jupyter Demo
 
 Query cloud inventory and perform analysis and visualisations using Jupyter, Python and StackQL.
 
-## Prerequisites
+Table of contents
+=================
+
+<!--ts-->
+   * [Prerequisites](#prerequisites)
+   * [Setting up authentication](#setting-up-authentication)
+   * [Instructions to pull and run image from Dockerhub](#instructions-to-pull-and-run-image-from-dockerhub)
+   * [Instructions to build and run locally](#instructions-to-build-and-run-locally)
+<!--te-->  
+
+<br />
+
+![StackQL Jupyter](images/stackql-jupyter.png)
+
+Prerequisites
+=============
 
 - Docker
 - Doocker Compose (optional)
 
-## Setting up authentication
+Setting up authentication
+=========================
 
 You will need to setup credentials for the providers required by... 
 - adding the appropriate service account key(s) to the `keys/` directory 
@@ -51,7 +68,8 @@ $Env:NETLIFY_TOKEN = "YOURNETLIFYTOKEN"
 </details>
 
 
-## Instructions to pull and run image from Dockerhub
+Instructions to pull and run image from Dockerhub
+=================================================
 
 The `stackql-jupyter-demo` image is available on Dockerhub ([hub.docker.com/r/stackql/stackql-jupyter-demo](https://hub.docker.com/r/stackql/stackql-jupyter-demo)). To run it in detatched mode, execute the following command:  
 
@@ -94,7 +112,8 @@ docker stop $(docker ps -l -q --filter status=running --filter ancestor=stackql/
 docker rm $(docker ps --filter status=exited --filter ancestor=stackql/stackql-jupyter-demo -q)
 ```
 
-## Instructions to build and run locally
+Instructions to build and run locally
+=====================================
 
 Follow these instructions to build and run the container locally using `docker compose`, this could be adapted to use `docker run` as well if you prefer.
 
@@ -126,7 +145,3 @@ To remove the image locally run:
 ```bash 
 docker rmi stackql-jupyter-demo-jupyter:latest
 ```
-
-## Example
-
-![StackQL Jupyter](images/stackql-jupyter.png)
