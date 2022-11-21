@@ -75,7 +75,7 @@ using `bash`...
 
 ```bash
 docker pull stackql/stackql-jupyter-demo
-docker run -d -p 8888:8888 \
+CID=`docker run -d -p 8888:8888 \
 -e AWS_ACCESS_KEY_ID \
 -e AWS_SECRET_ACCESS_KEY \
 -e AZ_ACCESS_TOKEN \
@@ -83,14 +83,16 @@ docker run -d -p 8888:8888 \
 -e OKTA_SECRET_KEY \
 -e NETLIFY_TOKEN \
 stackql/stackql-jupyter-demo \
-/bin/sh -c "/scripts/entrypoint.sh"
+/bin/sh -c "/scripts/entrypoint.sh"`
+# optional - copy service account keys to container
+docker cp keys/stackql-security-reviewer.json  $CID:/jupyter/.keys/google-sa-key.json
 ```
 
 using `powershell`...
 
 ```powershell
 docker pull stackql/stackql-jupyter-demo
-docker run -d -p 8888:8888 `
+$CID=$(docker run -d -p 8888:8888 `
 -e AWS_ACCESS_KEY_ID `
 -e AWS_SECRET_ACCESS_KEY `
 -e AZ_ACCESS_TOKEN `
@@ -98,7 +100,9 @@ docker run -d -p 8888:8888 `
 -e OKTA_SECRET_KEY `
 -e NETLIFY_TOKEN `
 stackql/stackql-jupyter-demo `
-/bin/sh -c "/scripts/entrypoint.sh"
+/bin/sh -c "/scripts/entrypoint.sh")
+# optional - copy service account keys to container
+docker cp keys/stackql-security-reviewer.json  $CID:/jupyter/.keys/google-sa-key.json
 ```
 
 To stop and remove the container when you're finished, run...   

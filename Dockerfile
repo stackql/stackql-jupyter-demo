@@ -48,7 +48,7 @@ ENV PYTHON_PACKAGES="\
 ENV STACKQL_PROVIDER_AUTH="{\
 \"aws\": { \"type\": \"aws_signing_v4\", \"credentialsenvvar\": \"AWS_SECRET_ACCESS_KEY\", \"keyIDenvvar\": \"AWS_ACCESS_KEY_ID\" }, \
 \"azure\": { \"type\": \"bearer\", \"credentialsenvvar\": \"AZ_ACCESS_TOKEN\" }, \
-\"google\": { \"type\": \"service_account\",  \"credentialsfilepath\": \".keys/sa-key.json\" }, \
+\"google\": { \"type\": \"service_account\",  \"credentialsfilepath\": \"/jupyter/.keys/google-sa-key.json\" }, \
 \"github\": { \"type\": \"basic\", \"credentialsenvvar\": \"GITHUB_CREDS\" }, \
 \"okta\": { \"type\": \"api_key\", \"valuePrefix\": \"SSWS \", \"credentialsenvvar\": \"OKTA_SECRET_KEY\" }, \
 \"netlify\": { \"type\": \"bearer\", \"credentialsenvvar\": \"NETLIFY_TOKEN\" } \
