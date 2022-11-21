@@ -102,9 +102,9 @@ $CID=$(docker run -d -p 8888:8888 `
 stackql/stackql-jupyter-demo `
 /bin/sh -c "/scripts/entrypoint.sh")
 # optional - copy service account keys to container
-docker cp keys/stackql-security-reviewer.json  $CID:/jupyter/.keys/google-sa-key.json
+$target=$CID + ":/jupyter/.keys/google-sa-key.json" 
+docker cp keys/stackql-security-reviewer.json  $target
 ```
-
 To stop and remove the container when you're finished, run...   
 
 ```bash
