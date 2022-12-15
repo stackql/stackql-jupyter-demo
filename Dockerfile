@@ -14,6 +14,7 @@ RUN stackql exec 'registry pull github v0.3.6'
 RUN stackql exec 'registry pull k8s v0.1.1'
 RUN stackql exec 'registry pull netlify v0.2.0'
 RUN stackql exec 'registry pull okta v0.1.0'
+RUN stackql exec --registry='{ "url": "https://cdn.statically.io/gh/stackql/stackql-provider-registry/dev/providers" }' 'registry pull sumologic v0.1.1'
 
 FROM jupyter/base-notebook:latest AS jupyter
 WORKDIR /jupyter
@@ -51,7 +52,8 @@ ENV STACKQL_PROVIDER_AUTH="{\
 \"google\": { \"type\": \"service_account\",  \"credentialsfilepath\": \"/jupyter/.keys/google-sa-key.json\" }, \
 \"github\": { \"type\": \"basic\", \"credentialsenvvar\": \"GITHUB_CREDS\" }, \
 \"okta\": { \"type\": \"api_key\", \"valuePrefix\": \"SSWS \", \"credentialsenvvar\": \"OKTA_SECRET_KEY\" }, \
-\"netlify\": { \"type\": \"bearer\", \"credentialsenvvar\": \"NETLIFY_TOKEN\" } \
+\"netlify\": { \"type\": \"bearer\", \"credentialsenvvar\": \"NETLIFY_TOKEN\" }, \
+\"sumologic\": { \"type\": \"basic\", \"credentialsenvvar\": \"SUMO_CREDS\" } \
 }"
 RUN pip install --upgrade pip \
     && pip install --no-cache-dir $PYTHON_PACKAGES

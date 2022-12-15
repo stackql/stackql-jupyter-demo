@@ -9,6 +9,7 @@ services:
       GITHUB_CREDS: ${GITHUB_CREDS}
       OKTA_SECRET_KEY: ${OKTA_SECRET_KEY}
       NETLIFY_TOKEN: ${NETLIFY_TOKEN}
+      SUMO_CREDS: ${SUMO_CREDS}
     command:
       - /bin/sh
       - -c
