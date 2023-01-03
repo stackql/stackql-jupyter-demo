@@ -7,14 +7,14 @@ RUN chown stackql:stackql /home/stackql
 RUN chown stackql:stackql /srv
 USER stackql
 # pull stackql providers
-RUN stackql exec 'registry pull aws v0.1.3'
-RUN stackql exec 'registry pull azure v0.3.0'
-RUN stackql exec 'registry pull google v1.0.4'
-RUN stackql exec 'registry pull github v0.3.6'
-RUN stackql exec 'registry pull k8s v0.1.1'
-RUN stackql exec 'registry pull netlify v0.2.0'
-RUN stackql exec 'registry pull okta v0.1.0'
-RUN stackql exec --registry='{ "url": "https://cdn.statically.io/gh/stackql/stackql-provider-registry/dev/providers" }' 'registry pull sumologic v0.1.1'
+RUN stackql exec 'registry pull aws v23.01.00108'
+RUN stackql exec 'registry pull azure v23.01.00104'
+RUN stackql exec 'registry pull google v23.01.00104'
+RUN stackql exec 'registry pull github v23.01.00104'
+RUN stackql exec 'registry pull k8s v23.01.00104'
+RUN stackql exec 'registry pull netlify v23.01.00104'
+RUN stackql exec 'registry pull okta v23.01.00104'
+RUN stackql exec 'registry pull sumologic v23.01.00104'
 
 FROM jupyter/base-notebook:latest AS jupyter
 WORKDIR /jupyter

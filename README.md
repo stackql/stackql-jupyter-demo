@@ -82,6 +82,7 @@ CID=`docker run -d -p 8888:8888 \
 -e GITHUB_CREDS \
 -e OKTA_SECRET_KEY \
 -e NETLIFY_TOKEN \
+-e SUMO_CREDS \
 stackql/stackql-jupyter-demo \
 /bin/sh -c "/scripts/entrypoint.sh"`
 # optional - copy service account keys to container
