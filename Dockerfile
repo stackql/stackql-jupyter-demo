@@ -7,14 +7,15 @@ RUN chown stackql:stackql /home/stackql
 RUN chown stackql:stackql /srv
 USER stackql
 # pull stackql providers
-RUN stackql exec 'registry pull aws v23.01.00108'
-RUN stackql exec 'registry pull azure v23.01.00104'
-RUN stackql exec 'registry pull google v23.01.00104'
-RUN stackql exec 'registry pull github v23.01.00104'
-RUN stackql exec 'registry pull k8s v23.01.00104'
-RUN stackql exec 'registry pull netlify v23.01.00104'
-RUN stackql exec 'registry pull okta v23.01.00104'
-RUN stackql exec 'registry pull sumologic v23.01.00104'
+RUN stackql exec 'registry pull aws'
+RUN stackql exec 'registry pull azure'
+RUN stackql exec 'registry pull google'
+RUN stackql exec 'registry pull github'
+RUN stackql exec 'registry pull k8s'
+RUN stackql exec 'registry pull netlify'
+RUN stackql exec 'registry pull okta'
+RUN stackql exec 'registry pull sumologic'
+RUN stackql exec 'registry pull digitalocean'
 
 FROM jupyter/base-notebook:latest AS jupyter
 WORKDIR /jupyter
@@ -47,14 +48,17 @@ ENV PYTHON_PACKAGES="\
 " 
 # set stackql auth object
 ENV STACKQL_PROVIDER_AUTH="{\
-\"aws\": { \"type\": \"aws_signing_v4\", \"credentialsenvvar\": \"AWS_SECRET_ACCESS_KEY\", \"keyIDenvvar\": \"AWS_ACCESS_KEY_ID\" }, \
-\"azure\": { \"type\": \"bearer\", \"credentialsenvvar\": \"AZ_ACCESS_TOKEN\" }, \
-\"google\": { \"type\": \"service_account\",  \"credentialsfilepath\": \"/jupyter/.keys/google-sa-key.json\" }, \
-\"github\": { \"type\": \"basic\", \"credentialsenvvar\": \"GITHUB_CREDS\" }, \
-\"okta\": { \"type\": \"api_key\", \"valuePrefix\": \"SSWS \", \"credentialsenvvar\": \"OKTA_SECRET_KEY\" }, \
-\"netlify\": { \"type\": \"bearer\", \"credentialsenvvar\": \"NETLIFY_TOKEN\" }, \
-\"sumologic\": { \"type\": \"basic\", \"credentialsenvvar\": \"SUMO_CREDS\" } \
+\"google\": { \"type\": \"service_account\",  \"credentialsfilepath\": \"/jupyter/.keys/google-sa-key.json\" } \
 }"
+# ENV STACKQL_PROVIDER_AUTH="{\
+# \"aws\": { \"type\": \"aws_signing_v4\", \"credentialsenvvar\": \"AWS_SECRET_ACCESS_KEY\", \"keyIDenvvar\": \"AWS_ACCESS_KEY_ID\" }, \
+# \"azure\": { \"type\": \"bearer\", \"credentialsenvvar\": \"AZ_ACCESS_TOKEN\" }, \
+# \"google\": { \"type\": \"service_account\",  \"credentialsfilepath\": \"/jupyter/.keys/google-sa-key.json\" }, \
+# \"github\": { \"type\": \"basic\", \"credentialsenvvar\": \"GITHUB_CREDS\" }, \
+# \"okta\": { \"type\": \"api_key\", \"valuePrefix\": \"SSWS \", \"credentialsenvvar\": \"OKTA_SECRET_KEY\" }, \
+# \"netlify\": { \"type\": \"bearer\", \"credentialsenvvar\": \"NETLIFY_TOKEN\" }, \
+# \"sumologic\": { \"type\": \"basic\", \"credentialsenvvar\": \"SUMO_CREDS\" } \
+# }"
 RUN pip install --upgrade pip \
     && pip install --no-cache-dir $PYTHON_PACKAGES
 # copy stackql providers from stackql container 

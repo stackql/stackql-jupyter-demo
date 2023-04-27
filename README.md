@@ -79,10 +79,13 @@ CID=`docker run -d -p 8888:8888 \
 -e AWS_ACCESS_KEY_ID \
 -e AWS_SECRET_ACCESS_KEY \
 -e AZ_ACCESS_TOKEN \
--e GITHUB_CREDS \
--e OKTA_SECRET_KEY \
--e NETLIFY_TOKEN \
--e SUMO_CREDS \
+-e DIGITALOCEAN_ACCESS_TOKEN \
+-e OKTA_API_TOKEN \
+-e NETLIFY_AUTH_TOKEN \
+-e SUMOLOGIC_ACCESSID \
+-e SUMOLOGIC_ACCESSKEY \
+-e STACKQL_GITHUB_USERNAME \
+-e STACKQL_GITHUB_PASSWORD \
 stackql/stackql-jupyter-demo \
 /bin/sh -c "/scripts/entrypoint.sh"`
 # optional - copy service account keys to container
@@ -97,16 +100,20 @@ $CID=$(docker run -d -p 8888:8888 `
 -e AWS_ACCESS_KEY_ID `
 -e AWS_SECRET_ACCESS_KEY `
 -e AZ_ACCESS_TOKEN `
--e GITHUB_CREDS `
--e OKTA_SECRET_KEY `
--e NETLIFY_TOKEN `
--e SUMO_CREDS `
+-e DIGITALOCEAN_ACCESS_TOKEN `
+-e OKTA_API_TOKEN `
+-e NETLIFY_AUTH_TOKEN `
+-e SUMOLOGIC_ACCESSID `
+-e SUMOLOGIC_ACCESSKEY `
+-e STACKQL_GITHUB_USERNAME `
+-e STACKQL_GITHUB_PASSWORD `
 stackql/stackql-jupyter-demo `
 /bin/sh -c "/scripts/entrypoint.sh")
 # optional - copy service account keys to container
 $target=$CID + ":/jupyter/.keys/google-sa-key.json" 
 docker cp keys/stackql-security-reviewer.json  $target
 ```
+
 To stop and remove the container when you're finished, run...   
 
 ```bash
