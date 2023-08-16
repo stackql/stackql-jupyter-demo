@@ -38,13 +38,14 @@ You will need to setup credentials for the providers required by...
 ```bash
 export AWS_ACCESS_KEY_ID=YOURACCESSKEYID
 export AWS_SECRET_ACCESS_KEY=YOURSECRETACCESSKEY
-AZ_ACCESS_TOKEN_RAW=$(az account get-access-token --query accessToken --output tsv)
-export AZ_ACCESS_TOKEN=`echo $AZ_ACCESS_TOKEN_RAW | tr -d '\r'`
-export GITHUB_CREDS=$(echo -n 'githubusername:your_github_personal_access_token' | base64)
-export OKTA_SECRET_KEY=YOUROKTAAPIKEY
-export NETLIFY_TOKEN=YOURNETLIFYTOKEN
+export STACKQL_GITHUB_USERNAME=yourusername
+export STACKQL_GITHUB_PASSWORD=ghp_yourtoken
+export OKTA_API_TOKEN=YOUROKTAAPIKEY
+export NETLIFY_AUTH_TOKEN=YOURNETLIFYTOKEN
+export SUMOLOGIC_ACCESSID=YOURSUMOACCESSID
+export SUMOLOGIC_ACCESSKEY=YOURSUMOACCESSKEY
+export GOOGLE_CREDENTIALS=$(cat creds/my-key.json)
 ```
-
 </p>
 </details>
 
@@ -55,15 +56,17 @@ export NETLIFY_TOKEN=YOURNETLIFYTOKEN
 ```powershell
 $Env:AWS_ACCESS_KEY_ID = "YOURACCESSKEYID"
 $Env:AWS_SECRET_ACCESS_KEY = "YOURSECRETACCESSKEY"
-$Env:AZ_ACCESS_TOKEN = "$(az account get-access-token --query accessToken --output tsv)".Trim("`r")
-$Env:GITHUB_CREDS = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("githubusername:your_github_personal_access_token"))
-$Env:OKTA_SECRET_KEY = "YOUROKTAAPIKEY"
-$Env:NETLIFY_TOKEN = "YOURNETLIFYTOKEN"
+$Env:STACKQL_GITHUB_USERNAME = "yourusername"
+$Env:STACKQL_GITHUB_PASSWORD = "ghp_yourtoken"
+$Env:OKTA_API_TOKEN = "YOUROKTAAPIKEY"
+$Env:NETLIFY_AUTH_TOKEN = "YOURNETLIFYTOKEN"
+$Env:SUMOLOGIC_ACCESSID = "YOURSUMOACCESSID"
+$Env:SUMOLOGIC_ACCESSKEY = "YOURSUMOACCESSKEY"
+$env:GOOGLE_CREDENTIALS = Get-Content -Raw -Path creds\my-key.json
 ```
 
 </p>
 </details>
-
 
 ## Instructions to pull and run image from Dockerhub
 
@@ -78,14 +81,13 @@ docker pull stackql/stackql-jupyter-demo
 CID=`docker run -d -p 8888:8888 \
 -e AWS_ACCESS_KEY_ID \
 -e AWS_SECRET_ACCESS_KEY \
--e AZ_ACCESS_TOKEN \
--e DIGITALOCEAN_ACCESS_TOKEN \
+-e STACKQL_GITHUB_USERNAME \
+-e STACKQL_GITHUB_PASSWORD \
 -e OKTA_API_TOKEN \
 -e NETLIFY_AUTH_TOKEN \
 -e SUMOLOGIC_ACCESSID \
 -e SUMOLOGIC_ACCESSKEY \
--e STACKQL_GITHUB_USERNAME \
--e STACKQL_GITHUB_PASSWORD \
+-e GOOGLE_CREDENTIALS \
 stackql/stackql-jupyter-demo \
 /bin/sh -c "/scripts/entrypoint.sh"`
 # optional - copy service account keys to container
@@ -99,14 +101,13 @@ docker pull stackql/stackql-jupyter-demo
 $CID=$(docker run -d -p 8888:8888 `
 -e AWS_ACCESS_KEY_ID `
 -e AWS_SECRET_ACCESS_KEY `
--e AZ_ACCESS_TOKEN `
--e DIGITALOCEAN_ACCESS_TOKEN `
+-e STACKQL_GITHUB_USERNAME `
+-e STACKQL_GITHUB_PASSWORD `
 -e OKTA_API_TOKEN `
 -e NETLIFY_AUTH_TOKEN `
 -e SUMOLOGIC_ACCESSID `
 -e SUMOLOGIC_ACCESSKEY `
--e STACKQL_GITHUB_USERNAME `
--e STACKQL_GITHUB_PASSWORD `
+-e GOOGLE_CREDENTIALS `
 stackql/stackql-jupyter-demo `
 /bin/sh -c "/scripts/entrypoint.sh")
 # optional - copy service account keys to container
@@ -133,6 +134,7 @@ Clone this repo `git clone https://github.com/stackql/stackql-jupyter-demo`
 
 Build and run the image using the `docker-compose.yml` file:
 ```bash
+docker-compose build --no-cache
 docker compose up --build
 ```
 > Add authentication if running this on a server which is accessible to others, see https://jupyter-notebook.readthedocs.io/en/stable/security.html

@@ -41,15 +41,19 @@ COPY ./scripts/entrypoint.sh /scripts
 RUN chmod +x /scripts/entrypoint.sh
 # setup python environment
 ENV PYTHON_PACKAGES="\
+    pystackql \
     matplotlib \
     pandas \
 	mplfinance \
     psycopg2-binary \
+    nest_asyncio \
+    plotly \
+    ipytree \
 " 
 # set stackql auth object
-ENV STACKQL_PROVIDER_AUTH="{\
-\"google\": { \"type\": \"service_account\",  \"credentialsfilepath\": \"/jupyter/.keys/google-sa-key.json\" } \
-}"
+# ENV STACKQL_PROVIDER_AUTH="{\
+# \"google\": { \"type\": \"service_account\",  \"credentialsfilepath\": \"/jupyter/.keys/google-sa-key.json\" } \
+# }"
 # ENV STACKQL_PROVIDER_AUTH="{\
 # \"aws\": { \"type\": \"aws_signing_v4\", \"credentialsenvvar\": \"AWS_SECRET_ACCESS_KEY\", \"keyIDenvvar\": \"AWS_ACCESS_KEY_ID\" }, \
 # \"azure\": { \"type\": \"bearer\", \"credentialsenvvar\": \"AZ_ACCESS_TOKEN\" }, \
