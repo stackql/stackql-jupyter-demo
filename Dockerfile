@@ -23,7 +23,7 @@ USER root
 RUN apt-get update && \
     apt-get upgrade -y
 # copy example notebooks to Jupyter workspace
-COPY ./notebooks/* /jupyter
+COPY ./notebooks/ /jupyter/
 RUN chmod 644 *.ipynb && \
     chown jovyan:users *.ipynb
 # copy magic extensions
@@ -45,6 +45,7 @@ ENV PYTHON_PACKAGES="\
     nest_asyncio \
     plotly \
     ipytree \
+    nbformat \
 " 
 RUN pip install --upgrade pip \
     && pip install --no-cache-dir $PYTHON_PACKAGES
