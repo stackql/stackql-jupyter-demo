@@ -51,5 +51,9 @@ RUN pip install --upgrade pip \
     && pip install --no-cache-dir $PYTHON_PACKAGES
 # copy stackql providers from stackql container 
 COPY --from=stackql /home/stackql/.stackql /jupyter/.stackql
-# copy stackql binary from stackql container
+# copy stackql binary from stackql container (service instance)
 COPY --from=stackql /srv/stackql/stackql /srv/stackql/stackql
+# copy stackql binary from stackql container (standalone instance)
+# COPY --from=stackql /srv/stackql/stackql /home/jovyan/.local/stackql
+# RUN chmod 755 /home/jovyan/.local/stackql && \
+#     chown jovyan:users /home/jovyan/.local/stackql
