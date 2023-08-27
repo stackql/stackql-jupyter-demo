@@ -46,6 +46,7 @@ ENV PYTHON_PACKAGES="\
     plotly \
     ipytree \
     nbformat \
+    networkx \
 " 
 RUN pip install --upgrade pip \
     && pip install --no-cache-dir $PYTHON_PACKAGES
