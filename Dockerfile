@@ -39,6 +39,7 @@ RUN chmod +x /scripts/entrypoint.sh
 RUN mkdir -p /tmp/matplotlib
 RUN chmod 777 /tmp/matplotlib
 ENV MPLCONFIGDIR=/tmp/matplotlib
+ENV PYDEVD_DISABLE_FILE_VALIDATION=1
 # setup python environment
 ENV PYTHON_PACKAGES="\
     pystackql \
