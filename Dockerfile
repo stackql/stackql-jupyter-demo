@@ -35,6 +35,10 @@ RUN chmod 644 /jupyter/ext/*.py && \
 RUN mkdir -p /scripts
 COPY ./scripts/entrypoint.sh /scripts
 RUN chmod +x /scripts/entrypoint.sh
+# set up matplotlib temp dir
+RUN mkdir -p /tmp/matplotlib
+RUN chmod 777 /tmp/matplotlib
+ENV MPLCONFIGDIR=/tmp/matplotlib
 # setup python environment
 ENV PYTHON_PACKAGES="\
     pystackql \
@@ -54,7 +58,3 @@ RUN pip install --upgrade pip \
 COPY --from=stackql /home/stackql/.stackql /jupyter/.stackql
 # copy stackql binary from stackql container (service instance)
 COPY --from=stackql /srv/stackql/stackql /srv/stackql/stackql
-# copy stackql binary from stackql container (standalone instance)
-# COPY --from=stackql /srv/stackql/stackql /home/jovyan/.local/stackql
-# RUN chmod 755 /home/jovyan/.local/stackql && \
-#     chown jovyan:users /home/jovyan/.local/stackql
