@@ -17,12 +17,20 @@ class StackqlMagic(Magics):
         rendered = t.substitute(self.shell.user_ns)
         return rendered
 
+    # def run_query(self, query):
+    #     cur = conn.cursor(cursor_factory=RealDictCursor)
+    #     cur.execute(query)
+    #     rows = cur.fetchall()
+    #     cur.close()
+    #     return pd.read_json(json.dumps(rows))
+
     def run_query(self, query):
         cur = conn.cursor(cursor_factory=RealDictCursor)
         cur.execute(query)
         rows = cur.fetchall()
         cur.close()
-        return pd.read_json(json.dumps(rows))
+        json_str = json.dumps(rows)
+        return pd.read_json(StringIO(json_str))
 
     @line_cell_magic
     def stackql(self, line, cell=None):

@@ -9,8 +9,8 @@ USER stackql
 # pull stackql providers
 RUN stackql exec 'registry pull aws'
 RUN stackql exec 'registry pull google'
+RUN stackql exec 'registry pull github'
 # RUN stackql exec 'registry pull azure'
-# RUN stackql exec 'registry pull github'
 # RUN stackql exec 'registry pull k8s'
 # RUN stackql exec 'registry pull netlify'
 # RUN stackql exec 'registry pull okta'
