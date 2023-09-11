@@ -3,3 +3,4 @@ apikeys.sh
 apikeys.ps1
 stackql
 stackql-zip
+.stackql/
