@@ -7,9 +7,9 @@ RUN chown stackql:stackql /home/stackql
 RUN chown stackql:stackql /srv
 USER stackql
 # pull stackql providers
-RUN stackql exec 'registry pull aws'
-RUN stackql exec 'registry pull google'
-RUN stackql exec 'registry pull github'
+RUN stackql exec 'registry pull aws' || (echo "Failed to pull aws provider" && exit 1)
+RUN stackql exec 'registry pull google' || (echo "Failed to pull google provider" && exit 1)
+RUN stackql exec 'registry pull github' || (echo "Failed to pull github provider" && exit 1)
 # RUN stackql exec 'registry pull azure'
 # RUN stackql exec 'registry pull k8s'
 # RUN stackql exec 'registry pull netlify'
@@ -57,5 +57,8 @@ RUN pip install --upgrade pip \
     && pip install --no-cache-dir $PYTHON_PACKAGES
 # copy stackql providers from stackql container 
 COPY --from=stackql /home/stackql/.stackql /jupyter/.stackql
+RUN ls -al /jupyter/.stackql/src/aws || (echo "aws provider not present" && exit 1)
+RUN ls -al /jupyter/.stackql/src/googleapis.com || (echo "google provider not present" && exit 1)
+RUN ls -al /jupyter/.stackql/src/github || (echo "github provider not present" && exit 1)
 # copy stackql binary from stackql container (service instance)
 COPY --from=stackql /srv/stackql/stackql /srv/stackql/stackql
