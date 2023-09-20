@@ -14,6 +14,8 @@ services:
       STACKQL_GITHUB_USERNAME: ${STACKQL_GITHUB_USERNAME}
       STACKQL_GITHUB_PASSWORD: ${STACKQL_GITHUB_PASSWORD}
       GOOGLE_CREDENTIALS: ${GOOGLE_CREDENTIALS}
+    dns: 
+      - 8.8.8.8
     command:
       - /bin/sh
       - -c
