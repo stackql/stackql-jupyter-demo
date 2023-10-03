@@ -18,12 +18,18 @@ class StackqlMagic(Magics):
         return rendered
 
     def run_query(self, query):
-        cur = conn.cursor(cursor_factory=RealDictCursor)
-        cur.execute(query)
-        rows = cur.fetchall()
-        cur.close()
-        json_str = json.dumps(rows)
-        return pd.read_json(StringIO(json_str))
+        try:
+            cur = conn.cursor(cursor_factory=RealDictCursor)
+            cur.execute(query)
+            rows = cur.fetchall()
+            cur.close()
+            json_str = json.dumps(rows)
+            return pd.read_json(StringIO(json_str))
+        except psycopg2.ProgrammingError as e:
+            if str(e) == "no results to fetch":
+                return []
+            else:
+                raise
 
     @line_cell_magic
     def stackql(self, line, cell=None):
