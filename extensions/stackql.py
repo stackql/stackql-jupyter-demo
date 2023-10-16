@@ -7,7 +7,7 @@ from io import StringIO
 from string import Template
 
 # Make sure to use your own database connection details here.
-conn = psycopg2.connect("dbname=stackql user=stackql host=localhost port=5444")
+conn = psycopg2.connect("dbname=stackql user=stackql host=localhost port=5466")
 
 @magics_class
 class StackqlMagic(Magics):
