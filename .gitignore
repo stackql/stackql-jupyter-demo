@@ -5,3 +5,4 @@ apikeys.ps1
 stackql
 stackql-zip
 test.py
+*.json
