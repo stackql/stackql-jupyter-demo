@@ -137,7 +137,7 @@ Build and run the image using the `docker-compose.yml` file:
 docker-compose build --no-cache
 docker compose up --build
 ```
-> Add authentication if running this on a server which is accessible to others, see https://jupyter-notebook.readthedocs.io/en/stable/security.html
+> Add authentication if running this on a server which is accessible to others, see [https://jupyter-notebook.readthedocs.io/en/stable/security.html](https://jupyter-notebook.readthedocs.io/en/stable/security.html)
 
 ### 3. Use your notebook
 Navigate to `http://localhost:8888` and run your StackQL commands!  Use the sample notebook files included in the Jupyter workspace in the image.  
