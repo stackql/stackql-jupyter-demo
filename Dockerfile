@@ -10,7 +10,7 @@ USER stackql
 RUN stackql exec 'registry pull aws' || (echo "Failed to pull aws provider" && exit 1)
 RUN stackql exec 'registry pull google' || (echo "Failed to pull google provider" && exit 1)
 RUN stackql exec 'registry pull github' || (echo "Failed to pull github provider" && exit 1)
-# RUN stackql exec 'registry pull azure'
+RUN stackql exec 'registry pull azure' || (echo "Failed to pull azure provider" && exit 1)
 # RUN stackql exec 'registry pull k8s'
 # RUN stackql exec 'registry pull netlify'
 # RUN stackql exec 'registry pull okta'
