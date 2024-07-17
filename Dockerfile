@@ -42,7 +42,7 @@ ENV MPLCONFIGDIR=/tmp/matplotlib
 ENV PYDEVD_DISABLE_FILE_VALIDATION=1
 # setup python environment
 ENV PYTHON_PACKAGES="\
-    pystackql \
+    pystackql>=3.6.4 \
     matplotlib \
     pandas \
 	mplfinance \
