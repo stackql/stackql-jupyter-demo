@@ -139,6 +139,37 @@ docker compose up --build
 ```
 > Add authentication if running this on a server which is accessible to others, see [https://jupyter-notebook.readthedocs.io/en/stable/security.html](https://jupyter-notebook.readthedocs.io/en/stable/security.html)
 
+or
+
+```bash
+docker buildx build --no-cache -t stackql-jupyter-demo:latest .
+```
+ensure nothing is running on port `8888`:
+
+```bash
+sudo lsof -i -P -n | grep LISTEN
+```
+
+then run using:
+
+```bash
+docker run -d -p 8888:8888 \
+-e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+-e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
+-e STACKQL_GITHUB_USERNAME="$STACKQL_GITHUB_USERNAME" \
+-e STACKQL_GITHUB_PASSWORD="$STACKQL_GITHUB_PASSWORD" \
+-e GOOGLE_CREDENTIALS="$GOOGLE_CREDENTIALS" \
+stackql-jupyter-demo:latest \
+/bin/sh -c "/scripts/entrypoint.sh"
+```
+
+to stop and remove:
+
+```bash
+docker stop $(docker ps -l -q --filter status=running --filter ancestor=stackql-jupyter-demo)
+docker rm $(docker ps --filter status=exited --filter ancestor=stackql-jupyter-demo -q)
+```
+
 ### 3. Use your notebook
 Navigate to `http://localhost:8888` and run your StackQL commands!  Use the sample notebook files included in the Jupyter workspace in the image.  
 
