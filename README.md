@@ -1,3 +1,14 @@
+> ⚡ **Calling All Cloud/Data/Security Enthusiasts, Hacktoberfest 2024 is here!** ⚡  
+> Interested in contributing StackQL (SQL) queries, notebooks and visualizations for **Cloud Security Posture Management (CSPM)**, **FinOps**, **Cloud Inventory Analysis**, or **Infrastructure-as-Code (IaC)**?  
+>
+> Check out the issues and get started with your first pull request!, Let’s build something amazing together this Hacktoberfest!  
+
+💡 **Explore our repositories:** [StackQL](https://github.com/stackql/stackql), [StackQL Deploy](https://stackql-deploy.io/docs/), find provider documentation in the [StackQL Provider Registry Docs](https://registry.stackql.io/)  
+
+🔎 Build out example queries for [`aws`](https://aws.stackql.io/providers/aws/), [`gcp`](https://google.stackql.io/providers/google/), [`azure`](https://azure.stackql.io/providers/azure/), [`digitalocean`](https://digitalocean.stackql.io/providers/digitalocean/), [`linode`](https://linode.stackql.io/providers/linode/), [`okta`](https://okta.stackql.io/providers/okta/) and more, including multicloud queries!  
+
+---
+
 [![StackQL](https://stackql.io/img/stackql-logo-bold.png)](https://stackql.io/)  
 <br />
 [![GitHub Actions](https://github.com/stackql/stackql-jupyter-demo/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/stackql/stackql-jupyter-demo/actions/workflows/main.yml)
